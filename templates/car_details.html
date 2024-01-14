@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row align-items-md-stretch">
+        <div class="col-md-6">
+            <img src="{% static 'corola.jpg' %}" class="img-fluid rounded-3" alt="main">
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-bg-dark rounded-3">
+            <h1>{{ car.car_name}}</h1>
+            <p class='m-0'>{{ car.car_price }}</p>
+            <p class='m-0'> Quantity: {{ car.quantity }}</p>
+            <p class='m-0'>{{ car.discription }}</p>
+            <p class='m-0'>Brand: {{ car.brand }}</p>
+            {% if user.is_authenticated %}
+            <form method="post" action="{% url 'car_details' car.id %}">
+                {% csrf_token %}
+                
+                <button type="submit" class="btn btn-success">Buy Now</button>
+            </form>
+            {% else %}
+            <a href="{% url "singIn" %}"><button class="btn btn-success">Please login to buy</button></a>
+            {% endif %}
+           
+            {% comment %} <button class="btn btn-outline-light" type="button">Example button</button> {% endcomment %}
+          </div>
+        </div>
+        
+        
+        
+      </div>
+        
+      </div>
+
+
+  </div>
+
+
+  <div class="container d-flex flex-column">
+
+{% endblock content %}
