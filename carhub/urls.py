@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('car/', include('car.urls'), name='car'),
     path('brand/', include('brand.urls'), name='brand'),
+    path('account/', include('account.urls'), name='account'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

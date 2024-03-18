@@ -53,3 +53,5 @@ class SignInView(LoginView):
         btn_text['btn_text'] = 'Sign In.'
         return btn_text
     
+
+

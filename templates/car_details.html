@@ -4,27 +4,26 @@
 <div class="container">
     <div class="row align-items-md-stretch">
         <div class="col-md-6">
-            <img src="{% static 'corola.jpg' %}" class="img-fluid rounded-3" alt="main">
+            <img src="{{car.car_img.url }}" class="img-fluid rounded-3" alt="main">
         </div>
         <div class="col-md-6">
           <div class="h-100 p-5 text-bg-dark rounded-3">
             <h1>{{ car.car_name}}</h1>
-            <p class='m-0'>{{ car.car_price }}</p>
             <p class='m-0'> Quantity: {{ car.quantity }}</p>
-            <p class='m-0'>{{ car.discription }}</p>
+            <p class='m-0'>Price: {{ car.car_price }}</p>
             <p class='m-0'>Brand: {{ car.brand }}</p>
+            <p class='m-0'>Description: {{ car.discription }}</p>
             {% if user.is_authenticated %}
-            <form method="post" action="{% url 'car_details' car.id %}">
-                {% csrf_token %}
-                
-                <button type="submit" class="btn btn-success">Buy Now</button>
-            </form>
+            <a href='{% url "buy_car" car.id %}'><button type="submit" class="btn btn-success">Buy Now</button></a>
             {% else %}
             <a href="{% url "singIn" %}"><button class="btn btn-success">Please login to buy</button></a>
             {% endif %}
-           
+            
             {% comment %} <button class="btn btn-outline-light" type="button">Example button</button> {% endcomment %}
+
           </div>
+
+          
         </div>
         
         
@@ -35,8 +34,35 @@
 
 
   </div>
+  
+  
+  <div class="container d-flex justify-content-evenly py-5 my-5">
+    <div class="">
+      
+      <table class="table table-hover">
 
+        <thead>
+          <tr>
+            <th scope="col">user name</th>
+            <th scope="col">Said</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+          {% for comment in all_comments %}
+          <tr>
+              <td scope="row">{{ comment.user_name }}</td>
+              <td>{{ comment.Comment }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
 
-  <div class="container d-flex flex-column">
-
+      </table>    
+    </div>
+    <form method="post" action="{% url 'car_details' car.id %}">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <button type="submit" class="btn btn-success">Comment</button>
+  </form>
+  </div>
 {% endblock content %}
